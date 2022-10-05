@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProdutoService implements IProdutoService {
+public class ProdutoService<orderCategoryShipping> implements IProdutoService {
 
 
     private final IProdutoRepository produtoRepository;
@@ -30,15 +32,32 @@ public class ProdutoService implements IProdutoService {
 
     }
     @Override
-    public List<Produto> getCategoryFreeShipping(String category, Boolean freeShipping) throws Exception{
-        return this.produtoRepository.getAll().stream()
+    public List<Produto> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception{
+        List<Produto> lista = this.produtoRepository.getAll().stream()
                 .filter(p -> p.getCategory().equalsIgnoreCase(category) && p.getFreeShipping() == freeShipping)
                 .collect(Collectors.toList());
+        if(order == null) return lista;
+
+        switch (order) {
+            case 0:
+                lista = lista.stream()
+                        .sorted(Comparator.comparing(Produto::getName))
+                        .collect(Collectors.toList());
+                break;
+            case 1:
+                lista = lista.stream()
+                        .sorted(Comparator.comparing(Produto::getName).reversed())
+                        .collect(Collectors.toList());
+                break;
+        }
+        return lista;
     }
+
 
     public List<Produto> getByCategory(String category) throws FileNotFoundException {
         return this.produtoRepository.getAll()
                 .stream()
                 .filter(p -> p.getCategory().equals(category)).toList();
     }
+
 }
