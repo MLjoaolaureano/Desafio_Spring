@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import com.example.demo.entity.Produto;
 import com.example.demo.exception.ExistentProductIdException;
 import com.example.demo.exception.FileNotFoundException;
+import com.example.demo.exception.ProdutoNotExistsException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProdutoRepository implements IProdutoRepository {
@@ -19,7 +21,7 @@ public class ProdutoRepository implements IProdutoRepository {
     ObjectMapper mapper = new ObjectMapper();
     ObjectWriter writer = mapper.writer();
 
-    public List<Produto> getAll() throws FileNotFoundException{
+    public List<Produto> getAll() throws FileNotFoundException {
 
         File storeFile = new File(linkFile);
         List<Produto> produtos = null;
@@ -29,7 +31,6 @@ public class ProdutoRepository implements IProdutoRepository {
             throw new FileNotFoundException("Arquivo não encontrado.");
         }
         return produtos;
-
     }
 
     public List<Produto> saveAll(List<Produto> produtoList) throws ExistentProductIdException, FileNotFoundException {
@@ -52,6 +53,22 @@ public class ProdutoRepository implements IProdutoRepository {
         }
 
         return produtoList;
+    }
+
+    public Produto getProdutoById(Long id) throws FileNotFoundException, ProdutoNotExistsException {
+        File storeFile = new File(linkFile);
+        List<Produto> produtos = null;
+        try {
+            produtos = Arrays.asList(mapper.readValue(storeFile, Produto[].class));
+        } catch (IOException e) {
+            throw new FileNotFoundException("Arquivo não encontrado");
+        }
+        Optional<Produto> optionalProduto = produtos.stream().filter((p) -> p.getProductId().equals(id)).findFirst();
+        if (optionalProduto.isEmpty()) {
+            throw new ProdutoNotExistsException("Produto não existe");
+        } else {
+            return optionalProduto.get();
+        }
     }
 
 }

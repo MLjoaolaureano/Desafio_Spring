@@ -71,6 +71,9 @@ public class ProdutoService implements IProdutoService {
 
     @Override
     public List<Produto> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception {
-        return null;
+
+        return this.produtoRepository.getAll().stream()
+                .filter(p -> p.getFreeShipping() == freeShipping && p.getPrestige().length() >= prestige.length())
+                .collect(Collectors.toList());
     }
 }
