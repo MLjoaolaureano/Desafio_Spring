@@ -5,6 +5,7 @@ import com.example.demo.entity.Produto;
 import com.example.demo.repository.IProdutoRepository;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -18,8 +19,13 @@ public class ProdutoService implements IProdutoService {
     }
 
 
-    public List<Produto> getAll(){
+    public List<Produto> getAll() throws IOException {
         return this.produtoRepository.getAll();
+    }
+
+    @Override
+    public List<Produto> saveAll(List<Produto> produtoList) throws Exception {
+        return this.produtoRepository.saveAll(produtoList);
     }
 
 }
