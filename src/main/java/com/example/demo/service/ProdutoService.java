@@ -3,9 +3,11 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Produto;
 import com.example.demo.repository.IProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProdutoService implements IProdutoService {
@@ -20,6 +22,13 @@ public class ProdutoService implements IProdutoService {
 
     public List<Produto> getAll(){
         return this.produtoRepository.getAll();
+    }
+
+    @Override
+    public List<Produto> getCategoryFreeShipping(String category, Boolean freeShipping) {
+        return produtoRepository.getAll().stream()
+                     .filter(p-> p.getCategory().equalsIgnoreCase(category) && p.getFreeShipping() == freeShipping)
+                     .collect(Collectors.toList());
     }
 
 }
