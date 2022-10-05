@@ -9,6 +9,7 @@ import java.util.List;
 public interface IProdutoService {
 
     List<Produto> getAll() throws FileNotFoundException;
-
     List<Produto> saveAll(List<Produto> produtoList) throws Exception;
+    List<Produto> getCategoryFreeShipping(String category, Boolean freeShipping) throws Exception;
+    List<Produto> getByCategory(String category) throws Exception;
 }
