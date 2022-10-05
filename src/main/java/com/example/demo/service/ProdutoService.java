@@ -37,4 +37,11 @@ public class ProdutoService implements IProdutoService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Produto> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception {
+        return this.produtoRepository.getAll().stream()
+                .filter(p -> p.getFreeShipping() == freeShipping && p.getPrestige().length() >= prestige.length())
+                .collect(Collectors.toList());
+    }
+
 }
