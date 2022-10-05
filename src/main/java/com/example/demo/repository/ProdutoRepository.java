@@ -15,14 +15,16 @@ public class ProdutoRepository implements IProdutoRepository {
     private final String linkFile = "src/main/resources/products.json";
     ObjectMapper mapper = new ObjectMapper();
 
-    public List<Produto> getAll() throws  IOException {
-        File storeFile = new File(linkFile);
-        if (storeFile.exists() && !storeFile.isDirectory()) {
+    public List<Produto> getAll() {
+
+            File storeFile = new File(linkFile);
             List<Produto> produtos = null;
+        try {
             produtos = Arrays.asList(mapper.readValue(storeFile, Produto[].class));
-            return produtos;
-        } else {
-            throw new IOException("Arquivo de armazenamento não encontrado");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        return produtos;
+
     }
 }

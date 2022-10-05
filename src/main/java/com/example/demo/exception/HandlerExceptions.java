@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class HandlerExceptions {
 
-    @ExceptionHandler(IOException.class)
-    public ResponseEntity<ExceptionDetails> handlerNotFoundException(IOException ex) {
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ExceptionDetails> handlerNotFoundException(RuntimeException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("Arquivo de armazenamento não encontrado")
                 .message(ex.getMessage())

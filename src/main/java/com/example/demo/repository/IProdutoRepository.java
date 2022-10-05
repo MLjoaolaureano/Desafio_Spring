@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IProdutoRepository {
 
-    public List<Produto> getAll() throws FileNotFoundException, IOException;
+    public List<Produto> getAll();
 
 }
