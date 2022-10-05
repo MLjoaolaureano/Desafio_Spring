@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.Produto;
+import com.example.demo.exception.FileNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;
@@ -17,12 +18,14 @@ public class ProdutoRepository implements IProdutoRepository {
     ObjectMapper mapper = new ObjectMapper();
     ObjectWriter writer = mapper.writer();
 
-    public List<Produto> getAll() throws IOException {
+    public List<Produto> getAll() throws FileNotFoundException{
+
+        File storeFile = new File(linkFile);
         List<Produto> produtos = null;
         try {
-            produtos = Arrays.asList(mapper.readValue(new File(linkFile), Produto[].class));
-        } catch (Exception ex) {
-            throw ex;
+            produtos = Arrays.asList(mapper.readValue(storeFile, Produto[].class));
+        } catch (IOException e) {
+            throw new FileNotFoundException("Arquivo não encontrado");
         }
         return produtos;
 

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 
 import com.example.demo.entity.Produto;
+import com.example.demo.exception.FileNotFoundException;
 import com.example.demo.repository.IProdutoRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class ProdutoService implements IProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
-    public List<Produto> getAll() throws IOException {
+    public List<Produto> getAll() throws FileNotFoundException {
         return this.produtoRepository.getAll();
     }
 
