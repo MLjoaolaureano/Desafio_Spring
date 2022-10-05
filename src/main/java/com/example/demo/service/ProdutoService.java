@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProdutoService<orderCategoryShipping> implements IProdutoService {
-
+public class ProdutoService implements IProdutoService {
 
     private final IProdutoRepository produtoRepository;
 
@@ -49,6 +48,16 @@ public class ProdutoService<orderCategoryShipping> implements IProdutoService {
                         .sorted(Comparator.comparing(Produto::getName).reversed())
                         .collect(Collectors.toList());
                 break;
+            case 2:
+                lista = lista.stream()
+                        .sorted(Comparator.comparing(Produto::getPrice).reversed())
+                        .collect(Collectors.toList());
+                break;
+            case 3:
+                lista = lista.stream()
+                        .sorted(Comparator.comparing(Produto::getPrice))
+                        .collect(Collectors.toList());
+                break;
         }
         return lista;
     }
@@ -60,4 +69,8 @@ public class ProdutoService<orderCategoryShipping> implements IProdutoService {
                 .filter(p -> p.getCategory().equals(category)).toList();
     }
 
+    @Override
+    public List<Produto> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception {
+        return null;
+    }
 }
