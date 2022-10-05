@@ -41,4 +41,10 @@ public class ProdutoController {
     public ResponseEntity<List<Produto>> getProductByCategory(@RequestParam("category") String category) throws Exception {
         return ResponseEntity.ok(this.produtoService.getByCategory(category));
     }
+
+    @GetMapping("/freteGratisAvaliacao")
+    public ResponseEntity<List<Produto>> getFreeShippingPrestige(@RequestParam Boolean freeShipping, @RequestParam String prestige) throws Exception{
+        return ResponseEntity.ok(this.produtoService.getFreeShippingPrestige(freeShipping, prestige));
+    }
+
 }
