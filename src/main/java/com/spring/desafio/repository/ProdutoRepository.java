@@ -1,9 +1,9 @@
-package com.example.demo.repository;
+package com.spring.desafio.repository;
 
-import com.example.demo.entity.Produto;
-import com.example.demo.exception.ExistentProductIdException;
-import com.example.demo.exception.FileNotFoundException;
-import com.example.demo.exception.ProdutoNotExistsException;
+import com.spring.desafio.entity.Produto;
+import com.spring.desafio.exception.ExistentProductIdException;
+import com.spring.desafio.exception.FileNotFoundException;
+import com.spring.desafio.exception.ProdutoNotExistsException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;

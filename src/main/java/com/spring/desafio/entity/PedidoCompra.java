@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.spring.desafio.entity;
 
 import lombok.Data;
 import lombok.Getter;

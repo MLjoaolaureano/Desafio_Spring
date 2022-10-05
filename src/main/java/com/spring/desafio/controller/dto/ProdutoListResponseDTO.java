@@ -1,6 +1,6 @@
-package com.example.demo.controller.dto;
+package com.spring.desafio.controller.dto;
 
-import com.example.demo.entity.Produto;
+import com.spring.desafio.entity.Produto;
 import lombok.Getter;
 
 import java.util.ArrayList;

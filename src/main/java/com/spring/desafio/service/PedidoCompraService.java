@@ -1,16 +1,15 @@
-package com.example.demo.service;
+package com.spring.desafio.service;
 
-import com.example.demo.entity.PedidoCompra;
-import com.example.demo.entity.Produto;
-import com.example.demo.entity.TicketCompra;
-import com.example.demo.exception.FileNotFoundException;
-import com.example.demo.exception.ProdutoNotExistsException;
-import com.example.demo.exception.ProdutoQuantityNotSufficientException;
-import com.example.demo.repository.IProdutoRepository;
+import com.spring.desafio.entity.PedidoCompra;
+import com.spring.desafio.entity.Produto;
+import com.spring.desafio.entity.TicketCompra;
+import com.spring.desafio.exception.FileNotFoundException;
+import com.spring.desafio.exception.ProdutoNotExistsException;
+import com.spring.desafio.exception.ProdutoQuantityNotSufficientException;
+import com.spring.desafio.repository.IProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

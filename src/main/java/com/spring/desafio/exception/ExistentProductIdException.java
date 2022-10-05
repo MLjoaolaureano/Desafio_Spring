@@ -1,4 +1,4 @@
-package com.example.demo.exception;
+package com.spring.desafio.exception;
 
 public class ExistentProductIdException extends Exception{
 

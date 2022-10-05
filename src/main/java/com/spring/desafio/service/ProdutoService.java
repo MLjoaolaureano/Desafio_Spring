@@ -1,8 +1,9 @@
-package com.example.demo.service;
+package com.spring.desafio.service;
 
-import com.example.demo.entity.Produto;
-import com.example.demo.exception.FileNotFoundException;
-import com.example.demo.repository.IProdutoRepository;
+import com.spring.desafio.controller.dto.ProdutoResponseDTO;
+import com.spring.desafio.entity.Produto;
+import com.spring.desafio.exception.FileNotFoundException;
+import com.spring.desafio.repository.IProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -18,21 +19,22 @@ public class ProdutoService implements IProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
-    public List<Produto> getAll() throws FileNotFoundException {
-        return this.produtoRepository.getAll();
+    public List<ProdutoResponseDTO> getAll() throws FileNotFoundException {
+        return ProdutoResponseDTO.toDtoList(this.produtoRepository.getAll());
     }
 
     @Override
-    public List<Produto> saveAll(List<Produto> produtoList) throws Exception {
-        return this.produtoRepository.saveAll(produtoList);
+    public List<ProdutoResponseDTO> saveAll(List<Produto> produtoList) throws Exception {
+        return ProdutoResponseDTO.toDtoList(this.produtoRepository.saveAll(produtoList));
 
     }
+
     @Override
-    public List<Produto> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception{
+    public List<ProdutoResponseDTO> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception {
         List<Produto> lista = this.produtoRepository.getAll().stream()
                 .filter(p -> p.getCategory().equalsIgnoreCase(category) && p.getFreeShipping() == freeShipping)
                 .collect(Collectors.toList());
-        if(order == null) return lista;
+        if (order == null) return ProdutoResponseDTO.toDtoList(lista);
 
         switch (order) {
             case 0:
@@ -56,21 +58,21 @@ public class ProdutoService implements IProdutoService {
                         .collect(Collectors.toList());
                 break;
         }
-        return lista;
+        return ProdutoResponseDTO.toDtoList(lista);
     }
 
 
-    public List<Produto> getByCategory(String category) throws FileNotFoundException {
-        return this.produtoRepository.getAll()
+    public List<ProdutoResponseDTO> getByCategory(String category) throws FileNotFoundException {
+        return ProdutoResponseDTO.toDtoList(this.produtoRepository.getAll()
                 .stream()
-                .filter(p -> p.getCategory().equals(category)).toList();
+                .filter(p -> p.getCategory().equals(category)).toList());
     }
 
     @Override
-    public List<Produto> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception {
+    public List<ProdutoResponseDTO> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception {
 
-        return this.produtoRepository.getAll().stream()
+        return ProdutoResponseDTO.toDtoList(this.produtoRepository.getAll().stream()
                 .filter(p -> p.getFreeShipping() == freeShipping && p.getPrestige().length() >= prestige.length())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 }

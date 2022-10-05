@@ -1,12 +1,12 @@
-package com.example.demo.controller;
+package com.spring.desafio.controller;
 
 
-import com.example.demo.entity.PedidoCompra;
-import com.example.demo.entity.TicketCompra;
-import com.example.demo.exception.FileNotFoundException;
-import com.example.demo.exception.ProdutoNotExistsException;
-import com.example.demo.exception.ProdutoQuantityNotSufficientException;
-import com.example.demo.service.IPedidoCompraService;
+import com.spring.desafio.entity.PedidoCompra;
+import com.spring.desafio.entity.TicketCompra;
+import com.spring.desafio.exception.FileNotFoundException;
+import com.spring.desafio.exception.ProdutoNotExistsException;
+import com.spring.desafio.exception.ProdutoQuantityNotSufficientException;
+import com.spring.desafio.service.IPedidoCompraService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

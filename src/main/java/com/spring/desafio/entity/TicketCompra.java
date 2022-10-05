@@ -1,7 +1,6 @@
-package com.example.demo.entity;
+package com.spring.desafio.entity;
 
 import lombok.Data;
-import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.List;
