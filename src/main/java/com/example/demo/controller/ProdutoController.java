@@ -33,8 +33,5 @@ public class ProdutoController {
         return ResponseEntity.ok(this.produtoService.saveAll(produtoList));
     }
 
-    @PostMapping
-    public ResponseEntity<TicketCompra> purchaseRequest(@RequestBody PedidoCompra payload){
-        return ResponseEntity.ok(null);
-    }
+
 }

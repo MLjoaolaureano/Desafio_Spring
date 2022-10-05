@@ -35,4 +35,18 @@ public class HandlerExceptions {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ProdutoQuantityNotSufficientException.class)
+    public ResponseEntity<ExceptionDetails> handlerProdutoNotExistException(ProdutoQuantityNotSufficientException ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("Quantidade de produto é insuficiente")
+                .message(ex.getMessage())
+                .status(HttpStatus.NOT_ACCEPTABLE.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+
+
 }
