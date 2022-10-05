@@ -23,4 +23,16 @@ public class HandlerExceptions {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ProdutoNotExistsException.class)
+    public ResponseEntity<ExceptionDetails> handlerProdutoNotExistException(ProdutoNotExistsException ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("Produto não encontrado")
+                .message(ex.getMessage())
+                .status(HttpStatus.NOT_FOUND.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+    }
+
 }

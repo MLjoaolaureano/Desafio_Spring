@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.entity.PedidoCompra;
 import com.example.demo.entity.Produto;
+import com.example.demo.entity.TicketCompra;
 import com.example.demo.service.IProdutoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +31,10 @@ public class ProdutoController {
     @PostMapping
     public ResponseEntity<List<Produto>> saveAllProduto(@RequestBody List<Produto> produtoList) throws Exception {
         return ResponseEntity.ok(this.produtoService.saveAll(produtoList));
+    }
+
+    @PostMapping
+    public ResponseEntity<TicketCompra> purchaseRequest(@RequestBody PedidoCompra payload){
+        return ResponseEntity.ok(null);
     }
 }
