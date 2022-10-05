@@ -22,4 +22,9 @@ public class ProdutoService implements IProdutoService {
         return this.produtoRepository.getAll();
     }
 
+    public List<Produto> getByCategory(String category) {
+        return this.produtoRepository.getAll().stream()
+                .filter(p -> p.getCategory().equals(category))
+                .toList();
+    }
 }
