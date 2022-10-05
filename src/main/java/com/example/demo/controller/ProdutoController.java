@@ -1,10 +1,7 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.entity.Produto;
 import com.example.demo.service.IProdutoService;
-import org.springframework.http.HttpStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +17,6 @@ import java.util.List;
 public class ProdutoController {
 
     private final IProdutoService produtoService;
-
 
     public ProdutoController(IProdutoService produtoService) {
         this.produtoService = produtoService;
@@ -41,9 +37,8 @@ public class ProdutoController {
         return ResponseEntity.ok(this.produtoService.getCategoryFreeShipping(category, freeShipping));
     }
 
-
     @GetMapping("/filtrar")
-    public ResponseEntity<List<Produto>> getProductByCategory(@RequestParam("category") String category) {
+    public ResponseEntity<List<Produto>> getProductByCategory(@RequestParam("category") String category) throws Exception {
         return ResponseEntity.ok(this.produtoService.getByCategory(category));
     }
 }
