@@ -3,11 +3,8 @@ package com.example.demo.service;
 import com.example.demo.entity.Produto;
 import com.example.demo.exception.FileNotFoundException;
 import com.example.demo.repository.IProdutoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
