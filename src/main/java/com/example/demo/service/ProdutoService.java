@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProdutoService<orderCategoryShipping> implements IProdutoService {
+public class ProdutoService implements IProdutoService {
 
 
     private final IProdutoRepository produtoRepository;
@@ -58,6 +58,13 @@ public class ProdutoService<orderCategoryShipping> implements IProdutoService {
         return this.produtoRepository.getAll()
                 .stream()
                 .filter(p -> p.getCategory().equals(category)).toList();
+    }
+
+    @Override
+    public List<Produto> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception {
+        return this.produtoRepository.getAll().stream()
+                .filter(p -> p.getFreeShipping() == freeShipping && p.getPrestige().length() >= prestige.length())
+                .collect(Collectors.toList());
     }
 
 }
