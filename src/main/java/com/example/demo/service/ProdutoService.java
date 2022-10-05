@@ -20,7 +20,7 @@ public class ProdutoService implements IProdutoService {
     }
 
 
-    public List<Produto> getAll(){
+    public List<Produto> getAll() {
         return this.produtoRepository.getAll();
     }
 
