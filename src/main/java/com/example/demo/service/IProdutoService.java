@@ -12,5 +12,5 @@ public interface IProdutoService {
     List<Produto> saveAll(List<Produto> produtoList) throws Exception;
     public List<Produto> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception;
 
-
+    List<Produto> getByCategory(String category) throws Exception;
 }

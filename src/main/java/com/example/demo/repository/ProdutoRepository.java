@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.Produto;
+import com.example.demo.exception.ExistentProductIdException;
 import com.example.demo.exception.FileNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -25,27 +26,29 @@ public class ProdutoRepository implements IProdutoRepository {
         try {
             produtos = Arrays.asList(mapper.readValue(storeFile, Produto[].class));
         } catch (IOException e) {
-            throw new FileNotFoundException("Arquivo não encontrado");
+            throw new FileNotFoundException("Arquivo não encontrado.");
         }
         return produtos;
 
     }
 
-    public List<Produto> saveAll(List<Produto> produtoList) throws Exception {
-        List<Produto> copylist = null;
+    public List<Produto> saveAll(List<Produto> produtoList) throws ExistentProductIdException, FileNotFoundException {
+        List<Produto> copylist;
         try {
             List<Produto> actualList = Arrays.asList(mapper.readValue(new File(linkFile), Produto[].class));
             for (Produto produto : produtoList) {
                 if (actualList.stream().map(Produto::getProductId).toList().contains(produto.getProductId())) {
-                    throw new Exception("Id " + produto.getProductId() + " já existente.");
+                    throw new ExistentProductIdException("Id " + produto.getProductId() + " já existente.");
                 }
             }
 
             copylist = new ArrayList<>(actualList);
             copylist.addAll(produtoList);
             writer.writeValue(new File(linkFile), copylist);
-        } catch (Exception ex) {
-            throw ex;
+        } catch (IOException e) {
+            throw new FileNotFoundException("Arquivo não encontrado.");
+        } catch (ExistentProductIdException e) {
+            throw new ExistentProductIdException("Id do produto fornecido já existe.");
         }
 
         return produtoList;
