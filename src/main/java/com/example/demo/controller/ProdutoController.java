@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
+
+import com.example.demo.controller.dto.ProdutoResponseDTO;
 import com.example.demo.entity.Produto;
 import com.example.demo.service.IProdutoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -28,8 +27,9 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Produto>> saveAllProduto(@RequestBody List<Produto> produtoList) throws Exception {
-        return ResponseEntity.ok(this.produtoService.saveAll(produtoList));
+    public ResponseEntity<List<ProdutoResponseDTO>> saveAllProduto(@RequestBody List<Produto> produtoList) throws Exception {
+        List<ProdutoResponseDTO> response = ProdutoResponseDTO.toDtoList(this.produtoService.saveAll(produtoList));
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/categoriaFreteGratis")
