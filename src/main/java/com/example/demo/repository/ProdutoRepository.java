@@ -24,8 +24,8 @@ public class ProdutoRepository implements IProdutoRepository {
         } catch (Exception ex) {
             throw ex;
         }
-
         return produtos;
+
     }
 
     public List<Produto> saveAll(List<Produto> produtoList) throws Exception {

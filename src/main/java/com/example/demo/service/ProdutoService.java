@@ -18,7 +18,6 @@ public class ProdutoService implements IProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
-
     public List<Produto> getAll() throws IOException {
         return this.produtoRepository.getAll();
     }
