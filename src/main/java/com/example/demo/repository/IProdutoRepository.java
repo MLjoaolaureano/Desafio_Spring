@@ -1,7 +1,11 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.Produto;
+
+import java.util.List;
+
 public interface IProdutoRepository {
 
-    public void getAll();
+    public List<Produto> getAll();
 
 }
