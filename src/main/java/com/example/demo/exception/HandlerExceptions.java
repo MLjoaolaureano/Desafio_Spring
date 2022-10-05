@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class HandlerExceptions {
 
     @ExceptionHandler(FileNotFoundException.class)
-    public ResponseEntity<ExceptionDetails> handlerNotFoundException(FileNotFoundException ex) {
+    public ResponseEntity<ExceptionDetails> handlerFileNotFoundException(FileNotFoundException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("Arquivo de armazenamento não encontrado")
                 .message(ex.getMessage())
@@ -21,6 +21,18 @@ public class HandlerExceptions {
                 .build();
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ExistentProductIdException.class)
+    public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(ExistentProductIdException ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("Id já existente")
+                .message(ex.getMessage())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
 }
