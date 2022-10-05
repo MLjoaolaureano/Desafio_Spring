@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-
 import com.example.demo.entity.Produto;
 import com.example.demo.exception.FileNotFoundException;
 import com.example.demo.repository.IProdutoRepository;
@@ -37,11 +36,16 @@ public class ProdutoService implements IProdutoService {
                 .collect(Collectors.toList());
     }
 
+    public List<Produto> getByCategory(String category) throws FileNotFoundException {
+        return this.produtoRepository.getAll()
+                .stream()
+                .filter(p -> p.getCategory().equals(category)).toList();
+    }
+
     @Override
     public List<Produto> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception {
         return this.produtoRepository.getAll().stream()
                 .filter(p -> p.getFreeShipping() == freeShipping && p.getPrestige().length() >= prestige.length())
                 .collect(Collectors.toList());
     }
-
 }
