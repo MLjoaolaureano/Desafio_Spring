@@ -28,7 +28,7 @@ public class ProdutoController {
         return ResponseEntity.ok(this.produtoService.getAll());
     }
 
-    @GetMapping
+    @GetMapping("/categoriaFreteGratis")
     public ResponseEntity<List<Produto>> getCategoryFreeShipping(@RequestParam String category, @RequestParam Boolean freeShipping){
         return ResponseEntity.ok(this.produtoService.getCategoryFreeShipping(category, freeShipping));
     }
