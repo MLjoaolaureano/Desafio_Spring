@@ -37,10 +37,14 @@ public class ProdutoRepository implements IProdutoRepository {
         List<Produto> copylist;
         try {
             List<Produto> actualList = Arrays.asList(mapper.readValue(new File(linkFile), Produto[].class));
+            List<Long> idsExistentes = new ArrayList<>();
             for (Produto produto : produtoList) {
                 if (actualList.stream().map(Produto::getProductId).toList().contains(produto.getProductId())) {
-                    throw new ExistentProductIdException("Id " + produto.getProductId() + " já existente.");
+                    idsExistentes.add(produto.getProductId());
                 }
+            }
+            if (!idsExistentes.isEmpty()) {
+                throw new ExistentProductIdException("Não foi possível inserir os produtos. Ids já existentes: " + idsExistentes);
             }
 
             copylist = new ArrayList<>(actualList);
@@ -49,7 +53,7 @@ public class ProdutoRepository implements IProdutoRepository {
         } catch (IOException e) {
             throw new FileNotFoundException("Arquivo não encontrado.");
         } catch (ExistentProductIdException e) {
-            throw new ExistentProductIdException("Id do produto fornecido já existe.");
+            throw new ExistentProductIdException(e.getMessage());
         }
 
         return produtoList;
