@@ -23,7 +23,6 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-
     @GetMapping()
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() throws IOException {
         return ResponseEntity.ok(this.clientService.getAll());
@@ -43,5 +42,8 @@ public class ClientController {
         ClientResponseDTO responseClienteDTO = new ClientResponseDTO(newCliente);
         return new ResponseEntity<>(responseClienteDTO, HttpStatus.CREATED);
     }
-
+    @GetMapping("/filter")
+    public ResponseEntity<List<ClientResponseDTO>> getAllClientsByState(@RequestParam String state) throws IOException {
+        return ResponseEntity.ok(this.clientService.getAllClientsByState(state));
+    }
 }

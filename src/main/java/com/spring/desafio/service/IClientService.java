@@ -10,5 +10,10 @@ import java.util.List;
 
 public interface IClientService {
     List<ClientResponseDTO> getAll() throws FileNotFoundException;
+<<<<<<< HEAD
     Cliente create(Cliente newCliente) throws FileNotFoundException, ClienteIdAlreadyExists, ClienteCPFAlreadyExists;
+=======
+
+    List<ClientResponseDTO> getAllClientsByState(String state) throws FileNotFoundException;
+>>>>>>> main
 }
