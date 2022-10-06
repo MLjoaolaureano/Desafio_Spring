@@ -27,7 +27,7 @@ public class ClientController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<ClientResponseDTO>> getAllClientsByState(@RequestParam("state") String state) throws IOException {
+    public ResponseEntity<List<ClientResponseDTO>> getAllClientsByState(@RequestParam String state) throws IOException {
         return ResponseEntity.ok(this.clientService.getAllClientsByState(state));
     }
 }
