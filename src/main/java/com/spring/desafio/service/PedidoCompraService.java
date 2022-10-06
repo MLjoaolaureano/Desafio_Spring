@@ -10,6 +10,7 @@ import com.spring.desafio.repository.IProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class PedidoCompraService implements IPedidoCompraService {
         for (PedidoCompra compra : pedidoCompraList) {
             Produto produto = this.produtoRepository.getProdutoById(compra.getProductId());
             if (produto.getQuantity() < compra.getQuantity()) {
-                throw new ProdutoQuantityNotSufficientException("Estoque de produto é insuficiente");
+                throw new ProdutoQuantityNotSufficientException("Estoque do produto "+ compra.getProductId() + " é insuficiente");
             } else {
 
                 produtoSet.add(produto);
