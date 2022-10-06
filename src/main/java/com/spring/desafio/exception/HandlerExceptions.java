@@ -101,4 +101,42 @@ public class HandlerExceptions {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
+    /**
+     * This function handles {@link ClienteIdAlreadyExists} exception
+     *
+     * @param ex
+     * @return a response for the client, using {@link ExceptionDetails}
+     */
+
+    @ExceptionHandler(ClienteIdAlreadyExists.class)
+    public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(ClienteIdAlreadyExists ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("ID de Cliente já existente")
+                .message(ex.getMessage())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * This function handles {@link ClienteIdAlreadyExists} exception
+     *
+     * @param ex
+     * @return a response for the client, using {@link ExceptionDetails}
+     */
+
+    @ExceptionHandler(ClienteCPFAlreadyExists.class)
+    public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(ClienteCPFAlreadyExists ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("CPF de Cliente já existente")
+                .message(ex.getMessage())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+
 }
