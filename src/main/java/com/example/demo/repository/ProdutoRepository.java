@@ -65,7 +65,7 @@ public class ProdutoRepository implements IProdutoRepository {
         }
         Optional<Produto> optionalProduto = produtos.stream().filter((p) -> p.getProductId().equals(id)).findFirst();
         if (optionalProduto.isEmpty()) {
-            throw new ProdutoNotExistsException("Produto não existe");
+            throw new ProdutoNotExistsException("Produto " + id + " não existe");
         } else {
             return optionalProduto.get();
         }

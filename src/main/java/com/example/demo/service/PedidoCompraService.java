@@ -31,7 +31,7 @@ public class PedidoCompraService implements IPedidoCompraService{
         for(PedidoCompra compra: pedidoCompraList){
             Produto produto = this.produtoRepository.getProdutoById(compra.getProductId());
             if(produto.getQuantity() < compra.getQuantity()){
-                throw new ProdutoQuantityNotSufficientException("Estoque de produto é insuficiente");
+                throw new ProdutoQuantityNotSufficientException("Estoque do produto "+ compra.getProductId() + " é insuficiente");
             }
             else{
 
