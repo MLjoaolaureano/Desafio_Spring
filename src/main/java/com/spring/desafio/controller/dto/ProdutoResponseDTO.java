@@ -1,6 +1,7 @@
 package com.spring.desafio.controller.dto;
 
 
+import com.spring.desafio.entity.Cliente;
 import com.spring.desafio.entity.Produto;
 import lombok.Getter;
 
