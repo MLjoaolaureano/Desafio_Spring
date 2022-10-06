@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface IClientService {
     List<ClientResponseDTO> getAll() throws FileNotFoundException;
+
+    List<ClientResponseDTO> getAllClientsByState(String state) throws FileNotFoundException;
 }

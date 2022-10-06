@@ -21,4 +21,10 @@ public class ClientService implements IClientService {
     public List<ClientResponseDTO> getAll() throws FileNotFoundException {
         return ClientResponseDTO.toDTOList(this.clientRepository.getAll());
     }
+
+    public List<ClientResponseDTO> getAllClientsByState(String state) throws FileNotFoundException {
+        return ClientResponseDTO.toDTOList(this.clientRepository.getAll()
+                .stream()
+                .filter(c -> c.getState().equalsIgnoreCase(state)).toList());
+    }
 }
