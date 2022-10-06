@@ -1,11 +1,11 @@
 package com.spring.desafio.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.spring.desafio.entity.Produto;
 import com.spring.desafio.exception.ExistentProductIdException;
 import com.spring.desafio.exception.FileNotFoundException;
 import com.spring.desafio.exception.ProdutoNotExistsException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -15,12 +15,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Repository for {@link Produto}
+ */
 @Repository
 public class ProdutoRepository implements IProdutoRepository {
     private final String linkFile = "src/main/resources/products.json";
     ObjectMapper mapper = new ObjectMapper();
     ObjectWriter writer = mapper.writer();
 
+    /**
+     * Fetch the JSON file for storage and returns all products
+     *
+     * @return list of products
+     * @throws FileNotFoundException in case the filename is incorrect, or file does not exist
+     */
     public List<Produto> getAll() throws FileNotFoundException {
 
         File storeFile = new File(linkFile);
@@ -33,6 +42,14 @@ public class ProdutoRepository implements IProdutoRepository {
         return produtos;
     }
 
+    /**
+     * Stores a list of {@link Produto} and returns it.
+     *
+     * @param produtoList list of {@link Produto} to be stored
+     * @return list of products stored
+     * @throws ExistentProductIdException in case the productId already exist in storage
+     * @throws FileNotFoundException      in case the filename is incorrect, or file does not exist
+     */
     public List<Produto> saveAll(List<Produto> produtoList) throws ExistentProductIdException, FileNotFoundException {
         List<Produto> copylist;
         try {
@@ -59,6 +76,14 @@ public class ProdutoRepository implements IProdutoRepository {
         return produtoList;
     }
 
+    /**
+     * Returns a product based in its productId
+     *
+     * @param id productId to be fetched
+     * @return a product entity
+     * @throws FileNotFoundException
+     * @throws ProdutoNotExistsException in case {@link Produto} does not exists
+     */
     public Produto getProdutoById(Long id) throws FileNotFoundException, ProdutoNotExistsException {
         File storeFile = new File(linkFile);
         List<Produto> produtos = null;

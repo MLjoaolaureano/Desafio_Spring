@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Main controller for {@link PedidoCompra} entity
+ */
 @RestController
 @RequestMapping("purchase-request")
 public class PedidoCompraController {
@@ -25,6 +28,15 @@ public class PedidoCompraController {
         this.pedidoCompraService = pedidoCompraService;
     }
 
+    /**
+     * POST endpoint to receive {@link List<PedidoCompra>} payload from user and returns the ticket created for purchase request
+     *
+     * @param payload
+     * @return the ticket created for the purchase request
+     * @throws ProdutoNotExistsException             in case the product does not exist in storage
+     * @throws FileNotFoundException
+     * @throws ProdutoQuantityNotSufficientException in case the product quantity is not enough in storage
+     */
     @PostMapping
     public ResponseEntity<TicketCompra> purchaseRequest(@RequestBody List<PedidoCompra> payload) throws ProdutoNotExistsException, FileNotFoundException, ProdutoQuantityNotSufficientException {
         TicketCompra ticket = this.pedidoCompraService.createPedidoCompra(payload);

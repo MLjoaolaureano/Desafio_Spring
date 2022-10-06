@@ -9,9 +9,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
 
+/**
+ * This class is used to handle all the checked Exception in Spring environment.
+ */
 @ControllerAdvice
 public class HandlerExceptions {
 
+    /**
+     * This function handles {@link FileNotFoundException} exception
+     *
+     * @param ex
+     * @return a response for the client, using {@link ExceptionDetails}
+     */
     @ExceptionHandler(FileNotFoundException.class)
     public ResponseEntity<ExceptionDetails> handlerFileNotFoundException(FileNotFoundException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
@@ -24,6 +33,12 @@ public class HandlerExceptions {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * This function handles {@link ProdutoNotExistsException} exception
+     *
+     * @param ex
+     * @return a response for the client, using {@link ExceptionDetails}
+     */
     @ExceptionHandler(ProdutoNotExistsException.class)
     public ResponseEntity<ExceptionDetails> handlerProdutoNotExistException(ProdutoNotExistsException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
@@ -35,6 +50,13 @@ public class HandlerExceptions {
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * This function handles {@link ProdutoQuantityNotSufficientException} exception
+     *
+     * @param ex
+     * @return a response for the client, using {@link ExceptionDetails}
+     */
 
     @ExceptionHandler(ProdutoQuantityNotSufficientException.class)
     public ResponseEntity<ExceptionDetails> handlerProdutoQuantityNotSufficientException(ProdutoQuantityNotSufficientException ex) {
@@ -48,6 +70,13 @@ public class HandlerExceptions {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * This function handles {@link ExistentProductIdException} exception
+     *
+     * @param ex
+     * @return a response for the client, using {@link ExceptionDetails}
+     */
+     
     @ExceptionHandler(ExistentProductIdException.class)
     public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(ExistentProductIdException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
