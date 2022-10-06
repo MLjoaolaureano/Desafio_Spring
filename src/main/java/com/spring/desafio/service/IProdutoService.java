@@ -9,9 +9,13 @@ import java.util.List;
 public interface IProdutoService {
 
     List<ProdutoResponseDTO> getAll() throws FileNotFoundException;
+
     List<ProdutoResponseDTO> saveAll(List<Produto> produtoList) throws Exception;
+
     List<ProdutoResponseDTO> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception;
+
     List<ProdutoResponseDTO> getByCategory(String category) throws Exception;
+
     List<ProdutoResponseDTO> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception;
 
 }

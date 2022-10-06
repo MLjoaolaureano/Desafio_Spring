@@ -15,6 +15,6 @@ public interface IProdutoRepository {
 
     Produto getProdutoById(Long id) throws FileNotFoundException, ProdutoNotExistsException;
 
-    void savePedidoCompra(List<PedidoCompra> pedidoCompraList) throws FileNotFoundException;
+    void atualizaEstoque(List<PedidoCompra> pedidoCompraList) throws FileNotFoundException;
 
 }
