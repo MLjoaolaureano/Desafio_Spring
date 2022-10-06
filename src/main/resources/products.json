@@ -118,35 +118,5 @@
     "quantity": 9,
     "freeShipping": true,
     "prestige": "***"
-  },
-  {
-    "productId": 31,
-    "name": "Produto Teste",
-    "category": "Categoria Teste",
-    "brand": "Marca Teste",
-    "price": 500,
-    "quantity": 10,
-    "freeShipping": true,
-    "prestige": "****"
-  },
-  {
-    "productId": 990,
-    "name": "Produto Teste",
-    "category": "Categoria Teste",
-    "brand": "Marca Teste",
-    "price": 500,
-    "quantity": 10,
-    "freeShipping": true,
-    "prestige": "****"
-  },
-  {
-    "productId": 123321,
-    "name": "Produto Teste",
-    "category": "Categoria Teste",
-    "brand": "Marca Teste",
-    "price": 500,
-    "quantity": 10,
-    "freeShipping": true,
-    "prestige": "****"
   }
 ]
