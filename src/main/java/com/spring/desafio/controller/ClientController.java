@@ -21,7 +21,6 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-
     @GetMapping()
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() throws IOException {
         return ResponseEntity.ok(this.clientService.getAll());
