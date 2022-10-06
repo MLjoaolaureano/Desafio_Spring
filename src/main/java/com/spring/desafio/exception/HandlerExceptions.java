@@ -3,6 +3,7 @@ package com.spring.desafio.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -58,17 +59,16 @@ public class HandlerExceptions {
      */
 
     @ExceptionHandler(ProdutoQuantityNotSufficientException.class)
-    public ResponseEntity<ExceptionDetails> handlerProdutoNotExistException(ProdutoQuantityNotSufficientException ex) {
+    public ResponseEntity<ExceptionDetails> handlerProdutoQuantityNotSufficientException(ProdutoQuantityNotSufficientException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("Quantidade de produto é insuficiente")
                 .message(ex.getMessage())
-                .status(HttpStatus.NOT_ACCEPTABLE.value())
+                .status(HttpStatus.BAD_REQUEST.value())
                 .timeStamp(LocalDateTime.now())
                 .build();
 
-        return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
-
 
     /**
      * This function handles {@link ExistentProductIdException} exception
@@ -76,6 +76,7 @@ public class HandlerExceptions {
      * @param ex
      * @return a response for the client, using {@link ExceptionDetails}
      */
+     
     @ExceptionHandler(ExistentProductIdException.class)
     public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(ExistentProductIdException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
@@ -86,6 +87,18 @@ public class HandlerExceptions {
                 .build();
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(HttpRequestMethodNotSupportedException ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("Método não suportado")
+                .message("Método " + ex.getMethod() + " não suportado nessa rota.")
+                .status(HttpStatus.METHOD_NOT_ALLOWED.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
 }
