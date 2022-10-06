@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
  * ProdutoService is the Service bean for {@link com.spring.desafio.entity.Produto} entity.
- *
  */
 @Service
 public class ProdutoService implements IProdutoService {
@@ -26,7 +24,8 @@ public class ProdutoService implements IProdutoService {
 
     /**
      * Get all at storage
-     * @return list of ProdutoResponseDTO
+     *
+     * @return list of product DTO
      * @throws FileNotFoundException
      */
     public List<ProdutoResponseDTO> getAll() throws FileNotFoundException {
@@ -35,8 +34,9 @@ public class ProdutoService implements IProdutoService {
 
     /**
      * Save a list of product at storage
+     *
      * @param produtoList list of product
-     * @return list of ProdutoResponseDTO
+     * @return list of product DTO
      * @throws Exception
      */
     @Override
@@ -46,15 +46,16 @@ public class ProdutoService implements IProdutoService {
     }
 
     /**
-     * Returns a list of all products based in Category value and Freeshipping
-     * @param category category type
-     * @param freeShipping whether product offers freeShiping or not.
-     * @param order this value indicates the order method to be applied.
-     *              In case value is 0, it will sort by product name from A to Z
-     *              In case value is 1, it will sort by product name from Z to A
-     *              In case value is 2, it will sort by product price from biggest to smallest
-     *              In case value is 3, it will sort by product price from smallest to biggest
-     * @return list of ProdutoResponseDTO
+     * Returns {@link List<ProdutoResponseDTO>} filtered by Category value and FreeShipping
+     *
+     * @param category     category type
+     * @param freeShipping whether product offers freeShipping or not.
+     * @param order        this value indicates the order method to be applied.
+     *                     In case value is 0, it will sort by product name from A to Z
+     *                     In case value is 1, it will sort by product name from Z to A
+     *                     In case value is 2, it will sort by product price from biggest to smallest
+     *                     In case value is 3, it will sort by product price from smallest to biggest
+     * @return list of product DTO
      * @throws Exception
      */
     @Override
@@ -90,9 +91,10 @@ public class ProdutoService implements IProdutoService {
     }
 
     /**
-     * Returns a list of all products based in category value
+     * Returns a {@link List<ProdutoResponseDTO>} filtered by category value
+     *
      * @param category category type
-     * @return list of ProdutoResponseDTO
+     * @return list of product DTO
      * @throws FileNotFoundException
      */
     public List<ProdutoResponseDTO> getByCategory(String category) throws FileNotFoundException {
@@ -102,10 +104,11 @@ public class ProdutoService implements IProdutoService {
     }
 
     /**
-     * Returns a list with products given filter for freeShipping and prestige
+     * Returns {@link List<ProdutoResponseDTO>} filtered by freeShipping and prestige
+     *
      * @param freeShipping whether product offers freeShiping or not.
-     * @param prestige amount of prestige that the product must have at least.
-     * @return list of ProdutoResponseDTO
+     * @param prestige     amount of prestige that the product must have at least.
+     * @return list of product DTO
      * @throws Exception
      */
     @Override

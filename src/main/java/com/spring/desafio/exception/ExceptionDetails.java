@@ -5,6 +5,10 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * This class is used to build and better specify an Exception that might occur.
+ *
+ */
 @Data
 @Builder
 public class ExceptionDetails {

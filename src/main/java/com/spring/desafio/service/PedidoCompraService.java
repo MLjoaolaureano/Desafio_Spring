@@ -15,12 +15,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
  * ProdutoService is the Service bean for {@link com.spring.desafio.entity.PedidoCompra} entity.
- *
  */
 @Service
-public class PedidoCompraService implements IPedidoCompraService{
+public class PedidoCompraService implements IPedidoCompraService {
 
     private final IProdutoRepository produtoRepository;
 
@@ -30,9 +28,10 @@ public class PedidoCompraService implements IPedidoCompraService{
 
     /**
      * Performs a purchase and returns a {@link com.spring.desafio.entity.TicketCompra}
+     *
      * @param pedidoCompraList list of {@link com.spring.desafio.entity.PedidoCompra} for the purchase request.
-     * @return a {@link com.spring.desafio.entity.TicketCompra}
-     * @throws ProdutoNotExistsException in case the product does not exist in storage
+     * @return a ticket for the purchase request
+     * @throws ProdutoNotExistsException             in case the product does not exist in storage
      * @throws FileNotFoundException
      * @throws ProdutoQuantityNotSufficientException in case product quantity does not exist in storage
      */
@@ -41,12 +40,11 @@ public class PedidoCompraService implements IPedidoCompraService{
         Set<Produto> produtoSet = new HashSet<>();
         BigDecimal totalValor = BigDecimal.valueOf(0.0);
 
-        for(PedidoCompra compra: pedidoCompraList){
+        for (PedidoCompra compra : pedidoCompraList) {
             Produto produto = this.produtoRepository.getProdutoById(compra.getProductId());
-            if(produto.getQuantity() < compra.getQuantity()){
+            if (produto.getQuantity() < compra.getQuantity()) {
                 throw new ProdutoQuantityNotSufficientException("Estoque de produto é insuficiente");
-            }
-            else{
+            } else {
 
                 produtoSet.add(produto);
                 totalValor = totalValor.add(produto.getPrice().multiply(BigDecimal.valueOf(compra.getQuantity())));
