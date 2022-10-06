@@ -2,6 +2,7 @@ package com.spring.desafio.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.spring.desafio.entity.PedidoCompra;
 import com.spring.desafio.entity.Produto;
 import com.spring.desafio.exception.ExistentProductIdException;
 import com.spring.desafio.exception.FileNotFoundException;
@@ -97,6 +98,29 @@ public class ProdutoRepository implements IProdutoRepository {
             throw new ProdutoNotExistsException("Produto " + id + " não existe");
         } else {
             return optionalProduto.get();
+        }
+    }
+
+    /**
+     * Update quantity of items of {@link Produto}
+     * @param pedidoCompraList list of {@link PedidoCompra}
+     * @throws FileNotFoundException in case the filename is incorrect, or file does not exist
+     */
+    public void atualizaEstoque(List<PedidoCompra> pedidoCompraList) throws FileNotFoundException {
+        try {
+            List<Produto> actualList = Arrays.asList(mapper.readValue(new File(linkFile), Produto[].class));
+            List<Produto> newList = new ArrayList<>(actualList);
+
+            actualList.stream().forEach(item -> {
+                for (int i = 0; i < pedidoCompraList.size(); i++) {
+                    if (item.getProductId() == pedidoCompraList.get(i).getProductId()){
+                        newList.get(i).setQuantity(item.getQuantity() - pedidoCompraList.get(i).getQuantity());
+                    }
+                }
+            });
+            writer.writeValue(new File(linkFile), newList);
+        } catch (IOException e) {
+            throw new FileNotFoundException("Arquivo não encontrado.");
         }
     }
 
