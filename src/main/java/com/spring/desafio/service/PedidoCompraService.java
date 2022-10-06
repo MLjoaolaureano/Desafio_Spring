@@ -14,6 +14,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *
+ * ProdutoService is the Service bean for {@link com.spring.desafio.entity.PedidoCompra} entity.
+ *
+ */
 @Service
 public class PedidoCompraService implements IPedidoCompraService{
 
@@ -22,6 +27,15 @@ public class PedidoCompraService implements IPedidoCompraService{
     public PedidoCompraService(IProdutoRepository produtoRepository) {
         this.produtoRepository = produtoRepository;
     }
+
+    /**
+     * Performs a purchase and returns a {@link com.spring.desafio.entity.TicketCompra}
+     * @param pedidoCompraList list of {@link com.spring.desafio.entity.PedidoCompra} for the purchase request.
+     * @return a {@link com.spring.desafio.entity.TicketCompra}
+     * @throws ProdutoNotExistsException in case the product does not exist in storage
+     * @throws FileNotFoundException
+     * @throws ProdutoQuantityNotSufficientException in case product quantity does not exist in storage
+     */
     @Override
     public TicketCompra createPedidoCompra(List<PedidoCompra> pedidoCompraList) throws ProdutoNotExistsException, FileNotFoundException, ProdutoQuantityNotSufficientException {
         Set<Produto> produtoSet = new HashSet<>();
