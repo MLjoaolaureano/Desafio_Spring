@@ -2,7 +2,6 @@ package com.spring.desafio.controller;
 
 
 import com.spring.desafio.controller.dto.ProdutoResponseDTO;
-import com.spring.desafio.entity.PedidoCompra;
 import com.spring.desafio.entity.Produto;
 import com.spring.desafio.service.IProdutoService;
 import org.springframework.http.HttpStatus;

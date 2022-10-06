@@ -1,7 +1,6 @@
 package com.spring.desafio.entity;
 
 import lombok.Data;
-import lombok.Getter;
 
 /**
  * This entity represents a request for a single purchase item made from user

@@ -1,11 +1,11 @@
 package com.spring.desafio.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.spring.desafio.entity.Produto;
 import com.spring.desafio.exception.ExistentProductIdException;
 import com.spring.desafio.exception.FileNotFoundException;
 import com.spring.desafio.exception.ProdutoNotExistsException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
