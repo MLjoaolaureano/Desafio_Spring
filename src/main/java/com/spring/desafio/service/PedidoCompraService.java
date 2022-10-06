@@ -26,19 +26,23 @@ public class PedidoCompraService implements IPedidoCompraService{
     public TicketCompra createPedidoCompra(List<PedidoCompra> pedidoCompraList) throws ProdutoNotExistsException, FileNotFoundException, ProdutoQuantityNotSufficientException {
         Set<Produto> produtoSet = new HashSet<>();
         BigDecimal totalValor = BigDecimal.valueOf(0.0);
-
+        List<Produto> produtoList = this.produtoRepository.getAll();
         for(PedidoCompra compra: pedidoCompraList){
-            Produto produto = this.produtoRepository.getProdutoById(compra.getProductId());
+            Produto produto = produtoList.stream()
+                    .filter(p -> p.getProductId().equals(compra.getProductId()))
+                    .toList().get(0);
+
             if(produto.getQuantity() < compra.getQuantity()){
                 throw new ProdutoQuantityNotSufficientException("Estoque de produto é insuficiente");
             }
             else{
-
+                produto.setQuantity(produto.getQuantity() - compra.getQuantity());
                 produtoSet.add(produto);
                 totalValor = totalValor.add(produto.getPrice().multiply(BigDecimal.valueOf(compra.getQuantity())));
-
             }
         }
+
+        produtoRepository.savePedidoCompra(pedidoCompraList);
 
         TicketCompra novoTicket = new TicketCompra(produtoSet.stream().toList(), totalValor);
 
