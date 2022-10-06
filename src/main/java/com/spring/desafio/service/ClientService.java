@@ -24,7 +24,6 @@ public class ClientService implements IClientService {
         return ClientResponseDTO.toDTOList(this.clientRepository.getAll());
     }
 
-<<<<<<< HEAD
     /**
      * Save a new cliente at storage
      *
@@ -36,11 +35,10 @@ public class ClientService implements IClientService {
     @Override
     public Cliente create(Cliente newCliente) throws FileNotFoundException, ClienteIdAlreadyExists, ClienteCPFAlreadyExists {
         return clientRepository.create(newCliente);
-=======
-    public List<ClientResponseDTO> getAllClientsByState(String state) throws FileNotFoundException {
-        return ClientResponseDTO.toDTOList(this.clientRepository.getAll()
-                .stream()
-                .filter(c -> c.getState().equalsIgnoreCase(state)).toList());
->>>>>>> main
     }
-}
+        public List<ClientResponseDTO> getAllClientsByState (String state) throws FileNotFoundException {
+            return ClientResponseDTO.toDTOList(this.clientRepository.getAll()
+                    .stream()
+                    .filter(c -> c.getState().equalsIgnoreCase(state)).toList());
+        }
+    }

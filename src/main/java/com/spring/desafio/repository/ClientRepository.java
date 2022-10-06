@@ -3,6 +3,7 @@ package com.spring.desafio.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.spring.desafio.entity.Cliente;
+import com.spring.desafio.entity.Produto;
 import com.spring.desafio.exception.ClienteCPFAlreadyExists;
 import com.spring.desafio.exception.ClienteIdAlreadyExists;
 import com.spring.desafio.exception.FileNotFoundException;
@@ -60,7 +61,9 @@ public class ClientRepository implements IClientRepository {
                 if (existentClient.getClientId().equals(newCliente.getClientId()))
                     throw new ClienteIdAlreadyExists(String.format("Cliente com ID [%d] já existente", newCliente.getClientId()));
             }
-            writer.writeValue(storeFile, newCliente);
+            List<Cliente> wholeList = this.getAll();
+            wholeList.add(newCliente);
+            writer.writeValue(storeFile, wholeList);
 
             return newCliente;
         } catch (IOException e) {
