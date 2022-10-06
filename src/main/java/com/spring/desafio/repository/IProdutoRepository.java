@@ -1,10 +1,9 @@
-package com.example.demo.repository;
+package com.spring.desafio.repository;
 
-import com.example.demo.entity.Produto;
-import com.example.demo.exception.FileNotFoundException;
-import com.example.demo.exception.ProdutoNotExistsException;
+import com.spring.desafio.entity.Produto;
+import com.spring.desafio.exception.FileNotFoundException;
+import com.spring.desafio.exception.ProdutoNotExistsException;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface IProdutoRepository {
