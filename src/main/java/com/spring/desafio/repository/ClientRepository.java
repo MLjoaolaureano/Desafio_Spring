@@ -2,15 +2,15 @@ package com.spring.desafio.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.spring.desafio.entity.Cliente;
-import com.spring.desafio.entity.Produto;
-import com.spring.desafio.exception.ClienteCPFAlreadyExists;
-import com.spring.desafio.exception.ClienteIdAlreadyExists;
+import com.spring.desafio.entity.Client;
+import com.spring.desafio.exception.ClientCPFAlreadyExists;
+import com.spring.desafio.exception.ClientIdAlreadyExists;
 import com.spring.desafio.exception.FileNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +25,12 @@ public class ClientRepository implements IClientRepository {
     ObjectWriter writer = mapper.writer();
 
     @Override
-    public List<Cliente> getAll() throws FileNotFoundException {
+    public List<Client> getAll() throws FileNotFoundException {
 
         File storeFile = new File(fileClient);
-        List<Cliente> clients = null;
+        List<Client> clients = null;
         try {
-            clients = Arrays.asList(mapper.readValue(storeFile, Cliente[].class));
+            clients = Arrays.asList(mapper.readValue(storeFile, Client[].class));
         } catch (IOException e) {
             throw new FileNotFoundException("Arquivo não encontrado.");
         }
@@ -38,34 +38,35 @@ public class ClientRepository implements IClientRepository {
     }
 
     /**
-     * Store a new {@link Cliente} and returns the new created entity
+     * Store a new {@link Client} and returns the new created entity
      *
-     * @param newCliente
-     * @return the new Cliente stored
+     * @param newClient
+     * @return the new Client stored
      * @throws FileNotFoundException
-     * @throws ClienteIdAlreadyExists if CPF or ID already exists
+     * @throws ClientIdAlreadyExists if CPF or ID already exists
      */
-    public Cliente create(Cliente newCliente) throws FileNotFoundException, ClienteIdAlreadyExists, ClienteCPFAlreadyExists {
+    public Client create(Client newClient) throws FileNotFoundException, ClientIdAlreadyExists, ClientCPFAlreadyExists {
         File storeFile = new File(fileClient);
-        List<Cliente> clients = null;
+        List<Client> clients = null;
         try {
-            clients = Arrays.asList(mapper.readValue(storeFile, Cliente[].class));
-            Optional<Cliente> clienteOptional = clients.stream()
-                    .filter((c) -> c.getClientId().equals(newCliente.getClientId()) ||
-                            c.getCpf().equalsIgnoreCase(newCliente.getCpf()))
+            clients = Arrays.asList(mapper.readValue(storeFile, Client[].class));
+            Optional<Client> optionalClient = clients.stream()
+                    .filter((c) -> c.getClientId().equals(newClient.getClientId()) ||
+                            c.getCpf().equalsIgnoreCase(newClient.getCpf()))
                     .findAny();
-            if (clienteOptional.isPresent()) {
-                Cliente existentClient = clienteOptional.get();
-                if (existentClient.getCpf().equalsIgnoreCase(newCliente.getCpf()))
-                    throw new ClienteCPFAlreadyExists(String.format("Cliente com CPF [%s] já existente", newCliente.getCpf()));
-                if (existentClient.getClientId().equals(newCliente.getClientId()))
-                    throw new ClienteIdAlreadyExists(String.format("Cliente com ID [%d] já existente", newCliente.getClientId()));
+            if (optionalClient.isPresent()) {
+                Client existentClient = optionalClient.get();
+                if (existentClient.getCpf().equalsIgnoreCase(newClient.getCpf()))
+                    throw new ClientCPFAlreadyExists(String.format("Cliente com CPF [%s] já existente", newClient.getCpf()));
+                if (existentClient.getClientId().equals(newClient.getClientId()))
+                    throw new ClientIdAlreadyExists(String.format("Cliente com ID [%d] já existente", newClient.getClientId()));
             }
-            List<Cliente> wholeList = this.getAll();
-            wholeList.add(newCliente);
+            List<Client> wholeList = new ArrayList<>(this.getAll());
+//            wholeList.add();
+            wholeList.add(newClient);
             writer.writeValue(storeFile, wholeList);
 
-            return newCliente;
+            return newClient;
         } catch (IOException e) {
             throw new FileNotFoundException("Arquivo não encontrado.");
         }
