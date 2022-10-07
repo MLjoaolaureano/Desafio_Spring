@@ -3,7 +3,7 @@ package com.spring.desafio.controller;
 
 import com.spring.desafio.entity.RequestPurchase;
 import com.spring.desafio.entity.TicketPurchase;
-import com.spring.desafio.exception.DuplicatadeProductIdException;
+import com.spring.desafio.exception.DuplicatedProductIdException;
 import com.spring.desafio.exception.FileNotFoundException;
 import com.spring.desafio.exception.ProductNotExistsException;
 import com.spring.desafio.exception.ProductQuantityNotSufficientException;
@@ -40,12 +40,12 @@ public class PurchaseRequestController {
      * @throws ProductQuantityNotSufficientException in case the product quantity is not enough in storage
      */
     @PostMapping
-    public ResponseEntity<TicketPurchase> purchaseRequest(@RequestBody List<RequestPurchase> payload) throws ProductNotExistsException, FileNotFoundException, ProductQuantityNotSufficientException, DuplicatadeProductIdException {
+    public ResponseEntity<TicketPurchase> purchaseRequest(@RequestBody List<RequestPurchase> payload) throws ProductNotExistsException, FileNotFoundException, ProductQuantityNotSufficientException, DuplicatedProductIdException {
         List<Long> productId = new ArrayList<>();
 
         for (RequestPurchase requestPurchase : payload) {
             if (productId.contains(requestPurchase.getProductId())) {
-                throw new DuplicatadeProductIdException("O produto com id " + requestPurchase.getProductId() + " está duplicado.");
+                throw new DuplicatedProductIdException("O produto com id " + requestPurchase.getProductId() + " está duplicado.");
             } else {
                 productId.add(requestPurchase.getProductId());
             }

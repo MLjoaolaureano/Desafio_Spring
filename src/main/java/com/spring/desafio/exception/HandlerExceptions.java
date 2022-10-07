@@ -142,14 +142,14 @@ public class HandlerExceptions {
     }
 
     /**
-     * This function handles {@link DuplicatadeProductIdException} exception
+     * This function handles {@link DuplicatedProductIdException} exception
      *
      * @param ex
      * @return a response for the client, using {@link ExceptionDetails}
      */
 
-    @ExceptionHandler(DuplicatadeProductIdException.class)
-    public ResponseEntity<ExceptionDetails> handlerDuplicatadeProductIdException(DuplicatadeProductIdException ex) {
+    @ExceptionHandler(DuplicatedProductIdException.class)
+    public ResponseEntity<ExceptionDetails> handlerDuplicatadeProductIdException(DuplicatedProductIdException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("Id duplicado")
                 .message(ex.getMessage())
