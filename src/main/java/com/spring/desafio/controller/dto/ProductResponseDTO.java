@@ -3,6 +3,8 @@ package com.spring.desafio.controller.dto;
 
 import com.spring.desafio.entity.Product;
 import lombok.Getter;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,24 +13,44 @@ import java.util.List;
  */
 @Getter
 public class ProductResponseDTO {
-
     /**
-     * Product ID
-     */
-    private Long productId;
-    /**
-     * Product Name
+     * Product name
      */
     private String name;
+    /**
+     * Product category
+     */
+    private String category;
+    /**
+     * Product brand
+     */
+    private String brand;
+    /**
+     * Product price
+     */
+    private BigDecimal price;
     /**
      * Product quantity available
      */
     private Integer quantity;
+    /**
+     * Whether product offers free shipping or not
+     */
+    private Boolean freeShipping;
+    /**
+     * Product review evaluation
+     */
+    private String prestige;
 
     ProductResponseDTO(Product product) {
-        this.productId = product.getProductId();
         this.name = product.getName();
         this.quantity = product.getQuantity();
+        this.quantity = product.getQuantity();
+        this.category = product.getCategory();
+        this.freeShipping = product.getFreeShipping();
+        this.prestige = product.getPrestige();
+        this.price = product.getPrice();
+        this.brand = product.getBrand();
     }
 
     /**
