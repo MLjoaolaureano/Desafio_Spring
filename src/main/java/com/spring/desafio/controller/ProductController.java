@@ -5,6 +5,7 @@ import com.spring.desafio.controller.dto.ProductResponseDTO;
 import com.spring.desafio.entity.Product;
 import com.spring.desafio.entity.RequestPurchase;
 import com.spring.desafio.exception.DuplicatedProductIdException;
+import com.spring.desafio.exception.InvalidOrderOptionException;
 import com.spring.desafio.service.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,7 +73,7 @@ public class ProductController {
      * @throws Exception
      */
     @GetMapping("/category-free-shipping")
-    public ResponseEntity<List<ProductResponseDTO>> getCategoryFreeShipping(@RequestParam String category, @RequestParam Boolean freeShipping, @RequestParam(required = false) Integer order) throws Exception {
+    public ResponseEntity<List<ProductResponseDTO>> getCategoryFreeShipping(@RequestParam String category, @RequestParam Boolean freeShipping, @RequestParam(required = false) Integer order) throws Exception, InvalidOrderOptionException {
         return ResponseEntity.ok(this.productService.getCategoryFreeShipping(category, freeShipping, order));
     }
 

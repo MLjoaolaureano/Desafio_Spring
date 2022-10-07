@@ -3,6 +3,7 @@ package com.spring.desafio.service;
 import com.spring.desafio.controller.dto.ProductResponseDTO;
 import com.spring.desafio.entity.Product;
 import com.spring.desafio.exception.FileNotFoundException;
+import com.spring.desafio.exception.InvalidOrderOptionException;
 import com.spring.desafio.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -59,35 +60,53 @@ public class ProductService implements IProductService {
      * @throws Exception
      */
     @Override
-    public List<ProductResponseDTO> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception {
+    public List<ProductResponseDTO> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception, InvalidOrderOptionException {
         List<Product> lista = this.produtoRepository.getAll().stream()
                 .filter(p -> p.getCategory().equalsIgnoreCase(category) && p.getFreeShipping() == freeShipping)
                 .collect(Collectors.toList());
         if (order == null) return ProductResponseDTO.toDtoList(lista);
 
+        lista = orderList(lista, order);
+
+        return ProductResponseDTO.toDtoList(lista);
+    }
+
+    /**
+     * Returns {@link List< ProductResponseDTO >} ordererd by the order option algorithm
+     * @param listToOrder the list of product to order
+     * @param order
+     *                     In case value is 0, it will sort by product name from A to Z
+     *                     In case value is 1, it will sort by product name from Z to A
+     *                     In case value is 2, it will sort by product price from biggest to smallest
+     *                     In case value is 3, it will sort by product price from smallest to biggest
+     * @return list of Product orderd by the order algorithm option
+     */
+    private List<Product> orderList(List<Product> listToOrder, int order) throws InvalidOrderOptionException {
         switch (order) {
             case 0:
-                lista = lista.stream()
+                listToOrder = listToOrder.stream()
                         .sorted(Comparator.comparing(Product::getName))
                         .collect(Collectors.toList());
                 break;
             case 1:
-                lista = lista.stream()
+                listToOrder = listToOrder.stream()
                         .sorted(Comparator.comparing(Product::getName).reversed())
                         .collect(Collectors.toList());
                 break;
             case 2:
-                lista = lista.stream()
+                listToOrder = listToOrder.stream()
                         .sorted(Comparator.comparing(Product::getPrice).reversed())
                         .collect(Collectors.toList());
                 break;
             case 3:
-                lista = lista.stream()
+                listToOrder = listToOrder.stream()
                         .sorted(Comparator.comparing(Product::getPrice))
                         .collect(Collectors.toList());
                 break;
+            default:
+                throw new InvalidOrderOptionException(String.format("Opção de ordenamento %d inválido", order));
         }
-        return ProductResponseDTO.toDtoList(lista);
+        return listToOrder;
     }
 
     /**
