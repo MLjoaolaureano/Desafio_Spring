@@ -54,6 +54,13 @@ public class PurchaseRequestService implements IPurchaseRequestService {
             }
         }
 
+        productSet.stream().forEach(p -> {
+            for (int i = 0; i < requestPurchaseList.size(); i++){
+                if (p.getProductId() == requestPurchaseList.get(i).getProductId())
+                    p.setQuantity(requestPurchaseList.get(i).getQuantity());
+            }
+        });
+
         productRepository.updateStorage(requestPurchaseList);
 
         TicketPurchase newTicket = new TicketPurchase(productSet.stream().toList(), finalValue);
