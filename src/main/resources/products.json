@@ -5,7 +5,7 @@
     "category": "Ferramentas",
     "brand": "FORTGPRO",
     "price": 1800.00,
-    "quantity": 4,
+    "quantity": 5,
     "freeShipping": true,
     "prestige": "****"
   },
@@ -118,15 +118,5 @@
     "quantity": 9,
     "freeShipping": true,
     "prestige": "***"
-  },
-  {
-    "productId": 123321,
-    "name": "Produto Teste",
-    "category": "Categoria Teste",
-    "brand": "Marca Teste",
-    "price": 500,
-    "quantity": 10,
-    "freeShipping": true,
-    "prestige": "****"
   }
 ]

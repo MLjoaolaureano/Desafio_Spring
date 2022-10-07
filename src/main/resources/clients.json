@@ -3,10 +3,9 @@
     "clientId": 1,
     "name": "José Pereira",
     "state": "MG",
-    "cpf": "13445687630"
-  },
-  {
-    "clientId": 2,
+    "cpf": "13445687630\"},{\"clientId"
+    :
+    2,
     "name": "Maria Roberta da Silva",
     "state": "SP",
     "cpf": "34576890790"
@@ -34,5 +33,11 @@
     "name": "José Pereira",
     "state": "MG",
     "cpf": "04125467013"
+  },
+  {
+    "clientId": 6654,
+    "name": "José Pereira",
+    "state": "MG",
+    "cpf": "123"
   }
 ]

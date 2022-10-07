@@ -10,9 +10,9 @@ import com.spring.desafio.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -42,10 +42,13 @@ public class PurchaseRequestService implements IPurchaseRequestService {
         BigDecimal finalValue = BigDecimal.valueOf(0.0);
         List<Product> productList = this.productRepository.getAll();
         for (RequestPurchase requestPurchase : requestPurchaseList) {
-            Product product = productList.stream()
-                    .filter(p -> p.getProductId().equals(requestPurchase.getProductId()))
-                    .toList().get(0);
+            Optional<Product> productOptional = productList.stream()
+                    .filter(p -> p.getProductId().equals(requestPurchase.getProductId())).findFirst();
 
+            if (productOptional.isEmpty())
+                throw new ProductNotExistsException(String.format("Produto de ID %d requisitado inexistente", requestPurchase.getProductId()));
+
+            Product product = productOptional.get();
             if (product.getQuantity() < requestPurchase.getQuantity()) {
                 throw new ProductQuantityNotSufficientException("Estoque do produto " + product.getProductId() + "-" + product.getName() + " é insuficiente");
             } else {
@@ -58,7 +61,7 @@ public class PurchaseRequestService implements IPurchaseRequestService {
         productRepository.updateStorage(requestPurchaseList);
 
         productSet.stream().forEach(p -> {
-            for (int i = 0; i < requestPurchaseList.size(); i++){
+            for (int i = 0; i < requestPurchaseList.size(); i++) {
                 if (p.getProductId() == requestPurchaseList.get(i).getProductId())
                     p.setQuantity(requestPurchaseList.get(i).getQuantity());
             }
