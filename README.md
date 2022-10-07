@@ -16,7 +16,7 @@ Projeto proposto pelo curso da [Digital House](https://www.digitalhouse.com/br) 
 > **Backend**: Desenvolvido usando: Java 11, Spring Boot.
 
 ### Exemplo das requisições
-- 🔗 Importar via link no Postaman: [aqui](https://www.getpostman.com/collections/9760a6cc519709ec63b8)
+- 🔗 Importar via link no Postaman: [aqui](https://www.getpostman.com/collections/489278d735e15409fade)
 
 
 > **Grupo 10:**  

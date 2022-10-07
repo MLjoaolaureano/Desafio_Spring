@@ -2,8 +2,8 @@ package com.spring.desafio.controller;
 
 import com.spring.desafio.controller.dto.ClientResponseDTO;
 import com.spring.desafio.entity.Client;
-import com.spring.desafio.exception.ClientCPFAlreadyExists;
-import com.spring.desafio.exception.ClientIdAlreadyExists;
+import com.spring.desafio.exception.ClientCPFAlreadyExistsException;
+import com.spring.desafio.exception.ClientIdAlreadyExistsException;
 import com.spring.desafio.exception.FileNotFoundException;
 import com.spring.desafio.service.IClientService;
 import org.springframework.http.HttpStatus;
@@ -33,11 +33,11 @@ public class ClientController {
      *
      * @param client
      * @return ResponseEntity<Client> to the requester
-     * @throws ClientIdAlreadyExists
+     * @throws ClientIdAlreadyExistsException
      * @throws FileNotFoundException
      */
     @PostMapping("/insert-client-request")
-    public ResponseEntity<ClientResponseDTO> saveCliente(@RequestBody Client client) throws ClientIdAlreadyExists, FileNotFoundException, ClientCPFAlreadyExists {
+    public ResponseEntity<ClientResponseDTO> saveCliente(@RequestBody Client client) throws ClientIdAlreadyExistsException, FileNotFoundException, ClientCPFAlreadyExistsException {
         Client newClient = this.clientService.create(client);
         ClientResponseDTO responseClienteDTO = new ClientResponseDTO(newClient);
         return new ResponseEntity<>(responseClienteDTO, HttpStatus.CREATED);

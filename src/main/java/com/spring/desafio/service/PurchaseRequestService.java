@@ -10,6 +10,7 @@ import com.spring.desafio.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class PurchaseRequestService implements IPurchaseRequestService {
                     .toList().get(0);
 
             if (product.getQuantity() < requestPurchase.getQuantity()) {
-                throw new ProductQuantityNotSufficientException("Estoque de produto é insuficiente");
+                throw new ProductQuantityNotSufficientException("Estoque do produto " + product.getProductId() + "-" + product.getName() + " é insuficiente");
             } else {
                 product.setQuantity(product.getQuantity() - requestPurchase.getQuantity());
                 productSet.add(product);
@@ -54,14 +55,14 @@ public class PurchaseRequestService implements IPurchaseRequestService {
             }
         }
 
+        productRepository.updateStorage(requestPurchaseList);
+
         productSet.stream().forEach(p -> {
             for (int i = 0; i < requestPurchaseList.size(); i++){
                 if (p.getProductId() == requestPurchaseList.get(i).getProductId())
                     p.setQuantity(requestPurchaseList.get(i).getQuantity());
             }
         });
-
-        productRepository.updateStorage(requestPurchaseList);
 
         TicketPurchase newTicket = new TicketPurchase(productSet.stream().toList(), finalValue);
 
