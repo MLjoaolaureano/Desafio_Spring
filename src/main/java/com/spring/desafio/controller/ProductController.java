@@ -3,12 +3,15 @@ package com.spring.desafio.controller;
 
 import com.spring.desafio.controller.dto.ProductResponseDTO;
 import com.spring.desafio.entity.Product;
+import com.spring.desafio.entity.RequestPurchase;
+import com.spring.desafio.exception.DuplicatedProductIdException;
 import com.spring.desafio.service.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +47,15 @@ public class ProductController {
      */
     @PostMapping("/insert-articles-request")
     public ResponseEntity<List<ProductResponseDTO>> saveAllProduct(@RequestBody List<Product> productList) throws Exception {
+        List<Long> productId = new ArrayList<>();
+
+        for (Product product : productList) {
+            if (productId.contains(product.getProductId())) {
+                throw new DuplicatedProductIdException("O produto com id " + product.getProductId() + " está duplicado.");
+            } else {
+                productId.add(product.getProductId());
+            }
+        }
         List<ProductResponseDTO> response = this.productService.saveAll(productList);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
