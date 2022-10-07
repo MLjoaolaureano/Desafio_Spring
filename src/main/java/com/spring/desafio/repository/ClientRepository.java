@@ -3,8 +3,8 @@ package com.spring.desafio.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.spring.desafio.entity.Client;
-import com.spring.desafio.exception.ClientCPFAlreadyExists;
-import com.spring.desafio.exception.ClientIdAlreadyExists;
+import com.spring.desafio.exception.ClientCPFAlreadyExistsException;
+import com.spring.desafio.exception.ClientIdAlreadyExistsException;
 import com.spring.desafio.exception.FileNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -43,9 +43,9 @@ public class ClientRepository implements IClientRepository {
      * @param newClient
      * @return the new Client stored
      * @throws FileNotFoundException
-     * @throws ClientIdAlreadyExists if CPF or ID already exists
+     * @throws ClientIdAlreadyExistsException if CPF or ID already exists
      */
-    public Client create(Client newClient) throws FileNotFoundException, ClientIdAlreadyExists, ClientCPFAlreadyExists {
+    public Client create(Client newClient) throws FileNotFoundException, ClientIdAlreadyExistsException, ClientCPFAlreadyExistsException {
         File storeFile = new File(fileClient);
         List<Client> clients = null;
         try {
@@ -57,9 +57,9 @@ public class ClientRepository implements IClientRepository {
             if (optionalClient.isPresent()) {
                 Client existentClient = optionalClient.get();
                 if (existentClient.getCpf().equalsIgnoreCase(newClient.getCpf()))
-                    throw new ClientCPFAlreadyExists(String.format("Cliente com CPF [%s] já existente", newClient.getCpf()));
+                    throw new ClientCPFAlreadyExistsException(String.format("Cliente com CPF [%s] já existente", newClient.getCpf()));
                 if (existentClient.getClientId().equals(newClient.getClientId()))
-                    throw new ClientIdAlreadyExists(String.format("Cliente com ID [%d] já existente", newClient.getClientId()));
+                    throw new ClientIdAlreadyExistsException(String.format("Cliente com ID [%d] já existente", newClient.getClientId()));
             }
             List<Client> wholeList = new ArrayList<>(this.getAll());
 //            wholeList.add();
