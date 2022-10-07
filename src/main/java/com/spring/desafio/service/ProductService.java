@@ -3,6 +3,7 @@ package com.spring.desafio.service;
 import com.spring.desafio.controller.dto.ProductResponseDTO;
 import com.spring.desafio.entity.Product;
 import com.spring.desafio.exception.FileNotFoundException;
+import com.spring.desafio.exception.InvalidOrderOptionException;
 import com.spring.desafio.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +60,7 @@ public class ProductService implements IProductService {
      * @throws Exception
      */
     @Override
-    public List<ProductResponseDTO> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception {
+    public List<ProductResponseDTO> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception, InvalidOrderOptionException {
         List<Product> lista = this.produtoRepository.getAll().stream()
                 .filter(p -> p.getCategory().equalsIgnoreCase(category) && p.getFreeShipping() == freeShipping)
                 .collect(Collectors.toList());
@@ -80,7 +81,7 @@ public class ProductService implements IProductService {
      *                     In case value is 3, it will sort by product price from smallest to biggest
      * @return list of Product orderd by the order algorithm option
      */
-    private List<Product> orderList(List<Product> listToOrder, int order){
+    private List<Product> orderList(List<Product> listToOrder, int order) throws InvalidOrderOptionException {
         switch (order) {
             case 0:
                 listToOrder = listToOrder.stream()
@@ -102,6 +103,8 @@ public class ProductService implements IProductService {
                         .sorted(Comparator.comparing(Product::getPrice))
                         .collect(Collectors.toList());
                 break;
+            default:
+                throw new InvalidOrderOptionException(String.format("Opção de ordenamento %d inválido", order));
         }
         return listToOrder;
     }

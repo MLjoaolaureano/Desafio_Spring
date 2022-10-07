@@ -197,4 +197,24 @@ public class HandlerExceptions {
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
+
+    /**
+     * This function handles {@link InvalidOrderOptionException} exception
+     *
+     * @param ex
+     * @return a response for the client, using {@link ExceptionDetails}
+     */
+
+    @ExceptionHandler(InvalidOrderOptionException.class)
+    public ResponseEntity<ExceptionDetails> handlerMethodArgumentTypeMismatchException(InvalidOrderOptionException ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("Opção de ordenamento inválido")
+                .message("Opção de ordenamento inválido")
+                .status(HttpStatus.BAD_REQUEST.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+
 }
