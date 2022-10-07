@@ -1,9 +1,9 @@
 package com.spring.desafio.service;
 
-import com.spring.desafio.controller.dto.ProdutoResponseDTO;
-import com.spring.desafio.entity.Produto;
+import com.spring.desafio.controller.dto.ProductResponseDTO;
+import com.spring.desafio.entity.Product;
 import com.spring.desafio.exception.FileNotFoundException;
-import com.spring.desafio.repository.IProdutoRepository;
+import com.spring.desafio.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * ProdutoService is the Service bean for {@link com.spring.desafio.entity.Produto} entity.
+ * ProdutoService is the Service bean for {@link Product} entity.
  */
 @Service
-public class ProdutoService implements IProdutoService {
+public class ProductService implements IProductService {
 
-    private final IProdutoRepository produtoRepository;
+    private final IProductRepository produtoRepository;
 
-    public ProdutoService(IProdutoRepository produtoRepository) {
+    public ProductService(IProductRepository produtoRepository) {
         this.produtoRepository = produtoRepository;
     }
 
@@ -28,25 +28,25 @@ public class ProdutoService implements IProdutoService {
      * @return list of product DTO
      * @throws FileNotFoundException
      */
-    public List<ProdutoResponseDTO> getAll() throws FileNotFoundException {
-        return ProdutoResponseDTO.toDtoList(this.produtoRepository.getAll());
+    public List<ProductResponseDTO> getAll() throws FileNotFoundException {
+        return ProductResponseDTO.toDtoList(this.produtoRepository.getAll());
     }
 
     /**
      * Save a list of product at storage
      *
-     * @param produtoList list of product
+     * @param productList list of product
      * @return list of product DTO
      * @throws Exception
      */
     @Override
-    public List<ProdutoResponseDTO> saveAll(List<Produto> produtoList) throws Exception {
-        return ProdutoResponseDTO.toDtoList(this.produtoRepository.saveAll(produtoList));
+    public List<ProductResponseDTO> saveAll(List<Product> productList) throws Exception {
+        return ProductResponseDTO.toDtoList(this.produtoRepository.saveAll(productList));
 
     }
 
     /**
-     * Returns {@link List<ProdutoResponseDTO>} filtered by Category value and FreeShipping
+     * Returns {@link List< ProductResponseDTO >} filtered by Category value and FreeShipping
      *
      * @param category     category type
      * @param freeShipping whether product offers freeShipping or not.
@@ -59,52 +59,52 @@ public class ProdutoService implements IProdutoService {
      * @throws Exception
      */
     @Override
-    public List<ProdutoResponseDTO> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception {
-        List<Produto> lista = this.produtoRepository.getAll().stream()
+    public List<ProductResponseDTO> getCategoryFreeShipping(String category, Boolean freeShipping, Integer order) throws Exception {
+        List<Product> lista = this.produtoRepository.getAll().stream()
                 .filter(p -> p.getCategory().equalsIgnoreCase(category) && p.getFreeShipping() == freeShipping)
                 .collect(Collectors.toList());
-        if (order == null) return ProdutoResponseDTO.toDtoList(lista);
+        if (order == null) return ProductResponseDTO.toDtoList(lista);
 
         switch (order) {
             case 0:
                 lista = lista.stream()
-                        .sorted(Comparator.comparing(Produto::getName))
+                        .sorted(Comparator.comparing(Product::getName))
                         .collect(Collectors.toList());
                 break;
             case 1:
                 lista = lista.stream()
-                        .sorted(Comparator.comparing(Produto::getName).reversed())
+                        .sorted(Comparator.comparing(Product::getName).reversed())
                         .collect(Collectors.toList());
                 break;
             case 2:
                 lista = lista.stream()
-                        .sorted(Comparator.comparing(Produto::getPrice).reversed())
+                        .sorted(Comparator.comparing(Product::getPrice).reversed())
                         .collect(Collectors.toList());
                 break;
             case 3:
                 lista = lista.stream()
-                        .sorted(Comparator.comparing(Produto::getPrice))
+                        .sorted(Comparator.comparing(Product::getPrice))
                         .collect(Collectors.toList());
                 break;
         }
-        return ProdutoResponseDTO.toDtoList(lista);
+        return ProductResponseDTO.toDtoList(lista);
     }
 
     /**
-     * Returns a {@link List<ProdutoResponseDTO>} filtered by category value
+     * Returns a {@link List< ProductResponseDTO >} filtered by category value
      *
      * @param category category type
      * @return list of product DTO
      * @throws FileNotFoundException
      */
-    public List<ProdutoResponseDTO> getByCategory(String category) throws FileNotFoundException {
-        return ProdutoResponseDTO.toDtoList(this.produtoRepository.getAll()
+    public List<ProductResponseDTO> getByCategory(String category) throws FileNotFoundException {
+        return ProductResponseDTO.toDtoList(this.produtoRepository.getAll()
                 .stream()
                 .filter(p -> p.getCategory().equalsIgnoreCase(category)).toList());
     }
 
     /**
-     * Returns {@link List<ProdutoResponseDTO>} filtered by freeShipping and prestige
+     * Returns {@link List< ProductResponseDTO >} filtered by freeShipping and prestige
      *
      * @param freeShipping whether product offers freeShiping or not.
      * @param prestige     amount of prestige that the product must have at least.
@@ -112,9 +112,9 @@ public class ProdutoService implements IProdutoService {
      * @throws Exception
      */
     @Override
-    public List<ProdutoResponseDTO> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception {
+    public List<ProductResponseDTO> getFreeShippingPrestige(Boolean freeShipping, String prestige) throws Exception {
 
-        return ProdutoResponseDTO.toDtoList(this.produtoRepository.getAll().stream()
+        return ProductResponseDTO.toDtoList(this.produtoRepository.getAll().stream()
                 .filter(p -> p.getFreeShipping() == freeShipping && p.getPrestige().length() >= prestige.length())
                 .collect(Collectors.toList()));
     }

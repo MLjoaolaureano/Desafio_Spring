@@ -1,13 +1,13 @@
 package com.spring.desafio.repository;
 
-import com.spring.desafio.entity.Cliente;
-import com.spring.desafio.exception.ClienteCPFAlreadyExists;
-import com.spring.desafio.exception.ClienteIdAlreadyExists;
+import com.spring.desafio.entity.Client;
+import com.spring.desafio.exception.ClientCPFAlreadyExists;
+import com.spring.desafio.exception.ClientIdAlreadyExists;
 import com.spring.desafio.exception.FileNotFoundException;
 
 import java.util.List;
 
 public interface IClientRepository {
-    List<Cliente> getAll() throws FileNotFoundException;
-    Cliente create(Cliente newCliente) throws FileNotFoundException, ClienteIdAlreadyExists, ClienteCPFAlreadyExists;
+    List<Client> getAll() throws FileNotFoundException;
+    Client create(Client newClient) throws FileNotFoundException, ClientIdAlreadyExists, ClientCPFAlreadyExists;
 }

@@ -6,7 +6,7 @@ import lombok.Data;
  * This entity represents a request for a single purchase item made from user
  */
 @Data
-public class PedidoCompra {
+public class RequestPurchase {
     /**
      * The product id to be bought
      */

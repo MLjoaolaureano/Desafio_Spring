@@ -9,13 +9,13 @@ import java.util.List;
  * This class represents a list of products bought by user.
  */
 @Data
-public class TicketCompra {
+public class TicketPurchase {
 
     static Integer _id = 0;
     /**
      * The list of product successfully purchased
      */
-    List<Produto> produtoList;
+    List<Product> productList;
     /**
      * The final price of purchase
      */
@@ -25,8 +25,8 @@ public class TicketCompra {
      */
     private Integer id;
 
-    public TicketCompra(List<Produto> produtoList, BigDecimal valorTotal) {
-        this.produtoList = produtoList;
+    public TicketPurchase(List<Product> productList, BigDecimal valorTotal) {
+        this.productList = productList;
         this.valorTotal = valorTotal;
         this.id = ++_id;
     }

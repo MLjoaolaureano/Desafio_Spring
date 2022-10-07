@@ -34,13 +34,13 @@ public class HandlerExceptions {
     }
 
     /**
-     * This function handles {@link ProdutoNotExistsException} exception
+     * This function handles {@link ProductNotExistsException} exception
      *
      * @param ex
      * @return a response for the client, using {@link ExceptionDetails}
      */
-    @ExceptionHandler(ProdutoNotExistsException.class)
-    public ResponseEntity<ExceptionDetails> handlerProdutoNotExistException(ProdutoNotExistsException ex) {
+    @ExceptionHandler(ProductNotExistsException.class)
+    public ResponseEntity<ExceptionDetails> handlerProdutoNotExistException(ProductNotExistsException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("Produto não encontrado")
                 .message(ex.getMessage())
@@ -52,14 +52,14 @@ public class HandlerExceptions {
     }
 
     /**
-     * This function handles {@link ProdutoQuantityNotSufficientException} exception
+     * This function handles {@link ProductQuantityNotSufficientException} exception
      *
      * @param ex
      * @return a response for the client, using {@link ExceptionDetails}
      */
 
-    @ExceptionHandler(ProdutoQuantityNotSufficientException.class)
-    public ResponseEntity<ExceptionDetails> handlerProdutoQuantityNotSufficientException(ProdutoQuantityNotSufficientException ex) {
+    @ExceptionHandler(ProductQuantityNotSufficientException.class)
+    public ResponseEntity<ExceptionDetails> handlerProdutoQuantityNotSufficientException(ProductQuantityNotSufficientException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("Quantidade de produto é insuficiente")
                 .message(ex.getMessage())
@@ -102,14 +102,14 @@ public class HandlerExceptions {
     }
 
     /**
-     * This function handles {@link ClienteIdAlreadyExists} exception
+     * This function handles {@link ClientIdAlreadyExists} exception
      *
      * @param ex
      * @return a response for the client, using {@link ExceptionDetails}
      */
 
-    @ExceptionHandler(ClienteIdAlreadyExists.class)
-    public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(ClienteIdAlreadyExists ex) {
+    @ExceptionHandler(ClientIdAlreadyExists.class)
+    public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(ClientIdAlreadyExists ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("ID de Cliente já existente")
                 .message(ex.getMessage())
@@ -121,14 +121,14 @@ public class HandlerExceptions {
     }
 
     /**
-     * This function handles {@link ClienteIdAlreadyExists} exception
+     * This function handles {@link ClientIdAlreadyExists} exception
      *
      * @param ex
      * @return a response for the client, using {@link ExceptionDetails}
      */
 
-    @ExceptionHandler(ClienteCPFAlreadyExists.class)
-    public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(ClienteCPFAlreadyExists ex) {
+    @ExceptionHandler(ClientCPFAlreadyExists.class)
+    public ResponseEntity<ExceptionDetails> handlerExistentProductIdException(ClientCPFAlreadyExists ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("CPF de Cliente já existente")
                 .message(ex.getMessage())

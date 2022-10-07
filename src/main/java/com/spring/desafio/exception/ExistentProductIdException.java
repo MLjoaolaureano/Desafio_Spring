@@ -1,7 +1,9 @@
 package com.spring.desafio.exception;
 
+import com.spring.desafio.entity.Product;
+
 /**
- * This class is used as an Exception when the {@link com.spring.desafio.entity.Produto} already exists in some operation
+ * This class is used as an Exception when the {@link Product} already exists in some operation
  */
 public class ExistentProductIdException extends Exception {
 
